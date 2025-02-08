@@ -1,19 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ExpressAdapter } from '@nestjs/platform-express';
-import * as express from 'express';
-
-// Express インスタンスを作成
-const server = express();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
-  console.log('-------app init-------');
-  await app.init();
+  const app = await NestFactory.create(AppModule);
+  await app.listen(3000);
+  console.log(`Application is running on: http://localhost:3000`);
 }
 
-// Vercel 用にエクスポート
-export default async (req: express.Request, res: express.Response) => {
-  await bootstrap();
-  return server(req, res);
-};
+bootstrap();

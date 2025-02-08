@@ -20,7 +20,8 @@ let UserController = class UserController {
         this.userService = userService;
     }
     async create(data) {
-        return this.userService.createUser(data);
+        await console.log(data);
+        return await this.userService.createUser(data);
     }
     async findOne(studentId) {
         return this.userService.getUserById(studentId);

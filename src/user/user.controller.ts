@@ -17,7 +17,8 @@ export class UserController {
   // ユーザー作成
   @Post()
   async create(@Body() data: User): Promise<User> {
-    return this.userService.createUser(data);
+    await console.log(data);
+    return await this.userService.createUser(data);
   }
 
   // 学籍番号で取得
