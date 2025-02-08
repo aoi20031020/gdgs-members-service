@@ -1,11 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import * as express from 'express';
+
+// Express インスタンスを作成
+const server = express();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  // Vercel環境ではデフォルトのポートを使用し、環境変数がなければ3000番を使用
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
-  console.log(`Application is running on: http://localhost:${port}`);
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  await app.init();
 }
-bootstrap();
+
+// Vercel 用にエクスポート
+export default async (req: express.Request, res: express.Response) => {
+  await bootstrap();
+  return server(req, res);
+};
