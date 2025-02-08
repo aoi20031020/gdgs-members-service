@@ -1,7 +1,7 @@
 {
+  "extends": "./tsconfig.json", // ベース設定をextendsで読み込み
   "compilerOptions": {
-    "outDir": "./dist"
+    "outDir": "./dist" // 出力先をdistに設定
   },
-  "extends": "./tsconfig.json",
-  "exclude": ["node_modules", "test", "dist", "**/*spec.ts", "prisma", "vercel"]
+  "exclude": ["node_modules", "test", "dist", "**/*spec.ts", "prisma", "vercel"] // 除外するディレクトリ
 }
