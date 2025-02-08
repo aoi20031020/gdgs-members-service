@@ -22,8 +22,8 @@ export class UserController {
 
   // 学籍番号で取得
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<User | null> {
-    return this.userService.getUserById(id);
+  async findOne(@Param('id') studentId: string): Promise<User | null> {
+    return this.userService.getUserById(studentId);
   }
 
   // 全ユーザーを取得
@@ -35,15 +35,15 @@ export class UserController {
   // ユーザー更新
   @Put(':id')
   async update(
-    @Param('id') schoolId: string,
+    @Param('id') studentId: string,
     @Body() data: User,
   ): Promise<User> {
-    return this.userService.updateUser(schoolId, data);
+    return this.userService.updateUser(studentId, data);
   }
 
   // ユーザー削除
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<User> {
-    return this.userService.deleteUser(id);
+  async remove(@Param('id') studentId: string): Promise<User> {
+    return this.userService.deleteUser(studentId);
   }
 }

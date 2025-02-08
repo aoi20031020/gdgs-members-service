@@ -5,9 +5,9 @@ export declare class UserRepository {
     private readonly prisma;
     constructor(prisma: PrismaService);
     create(data: InputUser): Promise<User>;
-    findById(schoolId: string): Promise<User | null>;
+    findById(studentId: string): Promise<User | null>;
     findAll(): Promise<User[]>;
-    update(schoolId: string, data: InputUser): Promise<User>;
-    delete(schoolId: string): Promise<User>;
+    update(studentId: string, data: InputUser): Promise<User>;
+    delete(studentId: string): Promise<User>;
     createWithTransaction(data: InputUser): Promise<User>;
 }

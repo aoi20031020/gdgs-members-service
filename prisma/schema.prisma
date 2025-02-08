@@ -10,7 +10,7 @@ datasource db {
 
 model User {
   id              Int     @id @default(autoincrement())
-  school_id       String  @unique
+  student_id      String  @unique
   name            String
   email           String  @unique
   year            Int
@@ -22,6 +22,7 @@ model User {
 
 enum Role {
   ADMIN
-  GENERAL
   DEVELOPER
+  MEMBER
+  CORE_MEMBER
 }

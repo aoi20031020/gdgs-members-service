@@ -22,17 +22,17 @@ let UserController = class UserController {
     async create(data) {
         return this.userService.createUser(data);
     }
-    async findOne(id) {
-        return this.userService.getUserById(id);
+    async findOne(studentId) {
+        return this.userService.getUserById(studentId);
     }
     async findAll() {
         return this.userService.getAllUsers();
     }
-    async update(schoolId, data) {
-        return this.userService.updateUser(schoolId, data);
+    async update(studentId, data) {
+        return this.userService.updateUser(studentId, data);
     }
-    async remove(id) {
-        return this.userService.deleteUser(id);
+    async remove(studentId) {
+        return this.userService.deleteUser(studentId);
     }
 };
 exports.UserController = UserController;

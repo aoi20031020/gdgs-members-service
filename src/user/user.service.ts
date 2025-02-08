@@ -41,13 +41,12 @@ export class UserService {
   async convertToUserType(data: OutputUser): Promise<User> {
     return {
       name: data.name ?? '',
-      schoolId: data.school_id ?? '',
+      studentId: data.student_id ?? '',
       email: data.email ?? '',
       year: data.year ?? 0,
       teamEvent: data.team_event ?? false,
       teamMarketing: data.team_marketing ?? false,
       teamTechnology: data.team_technology ?? false,
-      role: data.role ?? 'ADMIN',
     };
   }
 }

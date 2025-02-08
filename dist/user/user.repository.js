@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRepository = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const client_1 = require("@prisma/client");
 let UserRepository = class UserRepository {
     constructor(prisma) {
         this.prisma = prisma;
@@ -20,14 +21,14 @@ let UserRepository = class UserRepository {
         try {
             return await this.prisma.user.create({
                 data: {
+                    student_id: data.studentId,
                     name: data.name,
-                    school_id: data.schoolId,
                     email: data.email,
                     year: data.year,
                     team_event: data.teamEvent,
                     team_marketing: data.teamMarketing,
                     team_technology: data.teamTechnology,
-                    role: data.role,
+                    role: client_1.Role.MEMBER,
                 },
             });
         }
@@ -35,14 +36,14 @@ let UserRepository = class UserRepository {
             throw new Error(`Failed to create user: ${error.message}`);
         }
     }
-    async findById(schoolId) {
+    async findById(studentId) {
         try {
             return await this.prisma.user.findUnique({
-                where: { school_id: schoolId },
+                where: { student_id: studentId },
             });
         }
         catch (error) {
-            throw new Error(`Failed to find user with id ${schoolId}: ${error.message}`);
+            throw new Error(`Failed to find user with id ${studentId}: ${error.message}`);
         }
     }
     async findAll() {
@@ -53,48 +54,47 @@ let UserRepository = class UserRepository {
             throw new Error(`Failed to fetch users: ${error.message}`);
         }
     }
-    async update(schoolId, data) {
+    async update(studentId, data) {
         try {
             return await this.prisma.user.update({
-                where: { school_id: schoolId },
+                where: { student_id: studentId },
                 data: {
+                    student_id: data.studentId,
                     name: data.name,
-                    school_id: data.schoolId,
                     email: data.email,
                     year: data.year,
                     team_event: data.teamEvent,
                     team_marketing: data.teamMarketing,
                     team_technology: data.teamTechnology,
-                    role: data.role,
                 },
             });
         }
         catch (error) {
-            throw new Error(`Failed to update user with id ${schoolId}: ${error.message}`);
+            throw new Error(`Failed to update user with id ${studentId}: ${error.message}`);
         }
     }
-    async delete(schoolId) {
+    async delete(studentId) {
         try {
             return await this.prisma.user.delete({
-                where: { school_id: schoolId },
+                where: { student_id: studentId },
             });
         }
         catch (error) {
-            throw new Error(`Failed to delete user with id ${schoolId}: ${error.message}`);
+            throw new Error(`Failed to delete user with id ${studentId}: ${error.message}`);
         }
     }
     async createWithTransaction(data) {
         const transaction = await this.prisma.$transaction(async (prisma) => {
             return await prisma.user.create({
                 data: {
+                    student_id: data.studentId,
                     name: data.name,
-                    school_id: data.schoolId,
                     email: data.email,
                     year: data.year,
                     team_event: data.teamEvent,
                     team_marketing: data.teamMarketing,
                     team_technology: data.teamTechnology,
-                    role: data.role,
+                    role: client_1.Role.MEMBER,
                 },
             });
         });

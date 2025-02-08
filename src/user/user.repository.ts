@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { User as InputUser } from './user.type';
-import { User } from '@prisma/client';
+import { Role, User } from '@prisma/client';
 
 @Injectable()
 export class UserRepository {
@@ -12,14 +12,14 @@ export class UserRepository {
     try {
       return await this.prisma.user.create({
         data: {
+          student_id: data.studentId,
           name: data.name,
-          school_id: data.schoolId,
           email: data.email,
           year: data.year,
           team_event: data.teamEvent,
           team_marketing: data.teamMarketing,
           team_technology: data.teamTechnology,
-          role: data.role,
+          role: Role.MEMBER,
         },
       });
     } catch (error) {
@@ -28,14 +28,14 @@ export class UserRepository {
   }
 
   // ユーザーをIDで取得する
-  async findById(schoolId: string): Promise<User | null> {
+  async findById(studentId: string): Promise<User | null> {
     try {
       return await this.prisma.user.findUnique({
-        where: { school_id: schoolId },
+        where: { student_id: studentId },
       });
     } catch (error) {
       throw new Error(
-        `Failed to find user with id ${schoolId}: ${error.message}`,
+        `Failed to find user with id ${studentId}: ${error.message}`,
       );
     }
   }
@@ -50,37 +50,36 @@ export class UserRepository {
   }
 
   // ユーザーを更新する
-  async update(schoolId: string, data: InputUser): Promise<User> {
+  async update(studentId: string, data: InputUser): Promise<User> {
     try {
       return await this.prisma.user.update({
-        where: { school_id: schoolId },
+        where: { student_id: studentId },
         data: {
+          student_id: data.studentId,
           name: data.name,
-          school_id: data.schoolId,
           email: data.email,
           year: data.year,
           team_event: data.teamEvent,
           team_marketing: data.teamMarketing,
           team_technology: data.teamTechnology,
-          role: data.role,
         },
       });
     } catch (error) {
       throw new Error(
-        `Failed to update user with id ${schoolId}: ${error.message}`,
+        `Failed to update user with id ${studentId}: ${error.message}`,
       );
     }
   }
 
   // ユーザーを削除する
-  async delete(schoolId: string): Promise<User> {
+  async delete(studentId: string): Promise<User> {
     try {
       return await this.prisma.user.delete({
-        where: { school_id: schoolId },
+        where: { student_id: studentId },
       });
     } catch (error) {
       throw new Error(
-        `Failed to delete user with id ${schoolId}: ${error.message}`,
+        `Failed to delete user with id ${studentId}: ${error.message}`,
       );
     }
   }
@@ -90,14 +89,14 @@ export class UserRepository {
     const transaction = await this.prisma.$transaction(async (prisma) => {
       return await prisma.user.create({
         data: {
+          student_id: data.studentId,
           name: data.name,
-          school_id: data.schoolId,
           email: data.email,
           year: data.year,
           team_event: data.teamEvent,
           team_marketing: data.teamMarketing,
           team_technology: data.teamTechnology,
-          role: data.role,
+          role: Role.MEMBER,
         },
       });
     });
