@@ -10,7 +10,7 @@ datasource db {
 
 model User {
   id              Int     @id @default(autoincrement())
-  school_id       String
+  school_id       String  @unique
   name            String
   email           String  @unique
   year            Int

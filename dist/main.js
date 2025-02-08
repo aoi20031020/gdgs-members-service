@@ -7,6 +7,7 @@ const express = require("express");
 const server = express();
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule, new platform_express_1.ExpressAdapter(server));
+    console.log('-------app init-------');
     await app.init();
 }
 exports.default = async (req, res) => {

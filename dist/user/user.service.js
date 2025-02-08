@@ -16,20 +16,37 @@ let UserService = class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
-    async createUser(email, name) {
-        return this.userRepository.create(email, name);
+    async createUser(data) {
+        const user = await this.userRepository.create(data);
+        return this.convertToUserType(user);
     }
-    async getUserById(id) {
-        return this.userRepository.findById(id);
+    async getUserById(schoolId) {
+        const user = await this.userRepository.findById(schoolId);
+        return this.convertToUserType(user);
     }
     async getAllUsers() {
-        return this.userRepository.findAll();
+        const users = await this.userRepository.findAll();
+        return Promise.all(users.map((user) => this.convertToUserType(user)));
     }
-    async updateUser(id, name, email) {
-        return this.userRepository.update(id, name, email);
+    async updateUser(schoolId, data) {
+        const user = await this.userRepository.update(schoolId, data);
+        return this.convertToUserType(user);
     }
-    async deleteUser(id) {
-        return this.userRepository.delete(id);
+    async deleteUser(schoolId) {
+        const user = await this.userRepository.delete(schoolId);
+        return this.convertToUserType(user);
+    }
+    async convertToUserType(data) {
+        return {
+            name: data.name ?? '',
+            schoolId: data.school_id ?? '',
+            email: data.email ?? '',
+            year: data.year ?? 0,
+            teamEvent: data.team_event ?? false,
+            teamMarketing: data.team_marketing ?? false,
+            teamTechnology: data.team_technology ?? false,
+            role: data.role ?? 'ADMIN',
+        };
     }
 };
 exports.UserService = UserService;

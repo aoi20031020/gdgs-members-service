@@ -16,25 +16,33 @@ let UserRepository = class UserRepository {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(email, name) {
+    async create(data) {
         try {
             return await this.prisma.user.create({
-                data: { email, name },
+                data: {
+                    name: data.name,
+                    school_id: data.schoolId,
+                    email: data.email,
+                    year: data.year,
+                    team_event: data.teamEvent,
+                    team_marketing: data.teamMarketing,
+                    team_technology: data.teamTechnology,
+                    role: data.role,
+                },
             });
         }
         catch (error) {
             throw new Error(`Failed to create user: ${error.message}`);
         }
     }
-    async findById(id) {
+    async findById(schoolId) {
         try {
             return await this.prisma.user.findUnique({
-                where: { id },
-                select: { id: true, email: true, name: true },
+                where: { school_id: schoolId },
             });
         }
         catch (error) {
-            throw new Error(`Failed to find user with id ${id}: ${error.message}`);
+            throw new Error(`Failed to find user with id ${schoolId}: ${error.message}`);
         }
     }
     async findAll() {
@@ -45,31 +53,49 @@ let UserRepository = class UserRepository {
             throw new Error(`Failed to fetch users: ${error.message}`);
         }
     }
-    async update(id, name, email) {
+    async update(schoolId, data) {
         try {
             return await this.prisma.user.update({
-                where: { id },
-                data: { name, email },
+                where: { school_id: schoolId },
+                data: {
+                    name: data.name,
+                    school_id: data.schoolId,
+                    email: data.email,
+                    year: data.year,
+                    team_event: data.teamEvent,
+                    team_marketing: data.teamMarketing,
+                    team_technology: data.teamTechnology,
+                    role: data.role,
+                },
             });
         }
         catch (error) {
-            throw new Error(`Failed to update user with id ${id}: ${error.message}`);
+            throw new Error(`Failed to update user with id ${schoolId}: ${error.message}`);
         }
     }
-    async delete(id) {
+    async delete(schoolId) {
         try {
             return await this.prisma.user.delete({
-                where: { id },
+                where: { school_id: schoolId },
             });
         }
         catch (error) {
-            throw new Error(`Failed to delete user with id ${id}: ${error.message}`);
+            throw new Error(`Failed to delete user with id ${schoolId}: ${error.message}`);
         }
     }
-    async createWithTransaction(email, name) {
+    async createWithTransaction(data) {
         const transaction = await this.prisma.$transaction(async (prisma) => {
             return await prisma.user.create({
-                data: { email, name },
+                data: {
+                    name: data.name,
+                    school_id: data.schoolId,
+                    email: data.email,
+                    year: data.year,
+                    team_event: data.teamEvent,
+                    team_marketing: data.teamMarketing,
+                    team_technology: data.teamTechnology,
+                    role: data.role,
+                },
             });
         });
         return transaction;

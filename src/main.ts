@@ -8,6 +8,7 @@ const server = express();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
+  console.log('-------app init-------');
   await app.init();
 }
 

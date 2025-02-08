@@ -1,11 +1,13 @@
 import { UserRepository } from './user.repository';
-import { User } from '@prisma/client';
+import { User } from './user.type';
+import { User as OutputUser } from '@prisma/client';
 export declare class UserService {
     private readonly userRepository;
     constructor(userRepository: UserRepository);
-    createUser(email: string, name: string): Promise<User>;
-    getUserById(id: number): Promise<User | null>;
-    getAllUsers(): Promise<User[]>;
-    updateUser(id: number, name: string, email: string): Promise<User>;
-    deleteUser(id: number): Promise<User>;
+    createUser(data: User): Promise<User>;
+    getUserById(schoolId: string): Promise<User | null>;
+    getAllUsers(): Promise<User[] | null>;
+    updateUser(schoolId: string, data: User): Promise<User>;
+    deleteUser(schoolId: string): Promise<User>;
+    convertToUserType(data: OutputUser): Promise<User>;
 }

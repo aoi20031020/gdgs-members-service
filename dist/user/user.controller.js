@@ -19,20 +19,20 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
-    async create(body) {
-        return this.userService.createUser(body.email, body.name);
+    async create(data) {
+        return this.userService.createUser(data);
     }
     async findOne(id) {
-        return this.userService.getUserById(Number(id));
+        return this.userService.getUserById(id);
     }
     async findAll() {
         return this.userService.getAllUsers();
     }
-    async update(id, body) {
-        return this.userService.updateUser(Number(id), body.name, body.email);
+    async update(schoolId, data) {
+        return this.userService.updateUser(schoolId, data);
     }
     async remove(id) {
-        return this.userService.deleteUser(Number(id));
+        return this.userService.deleteUser(id);
     }
 };
 exports.UserController = UserController;

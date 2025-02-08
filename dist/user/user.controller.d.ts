@@ -1,18 +1,11 @@
 import { UserService } from './user.service';
-import { User } from '@prisma/client';
+import { User } from './user.type';
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
-    create(body: {
-        email: string;
-        name: string;
-        password: string;
-    }): Promise<User>;
+    create(data: User): Promise<User>;
     findOne(id: string): Promise<User | null>;
-    findAll(): Promise<User[]>;
-    update(id: string, body: {
-        name: string;
-        email: string;
-    }): Promise<User>;
+    findAll(): Promise<User[] | null>;
+    update(schoolId: string, data: User): Promise<User>;
     remove(id: string): Promise<User>;
 }
