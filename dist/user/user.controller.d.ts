@@ -3,6 +3,7 @@ import { User } from './user.type';
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
+    preflight(): {};
     create(data: User): Promise<User>;
     findOne(studentId: string): Promise<User | null>;
     findAll(): Promise<User[] | null>;

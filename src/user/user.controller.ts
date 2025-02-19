@@ -6,6 +6,7 @@ import {
   Body,
   Put,
   Delete,
+  Options,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.type';
@@ -13,6 +14,11 @@ import { User } from './user.type';
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @Options()
+  preflight() {
+    return {};
+  }
 
   // ユーザー作成
   @Post()

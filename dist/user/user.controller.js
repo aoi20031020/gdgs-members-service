@@ -19,6 +19,9 @@ let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
     }
+    preflight() {
+        return {};
+    }
     async create(data) {
         await console.log(data);
         return await this.userService.createUser(data);
@@ -37,6 +40,12 @@ let UserController = class UserController {
     }
 };
 exports.UserController = UserController;
+__decorate([
+    (0, common_1.Options)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "preflight", null);
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
