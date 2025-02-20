@@ -7,12 +7,18 @@ import * as cors from 'cors';
 // Express インスタンスを作成
 const server = express();
 
-// CORS 設定（VercelでCORSエラーを防ぐ）
+// CORS 設定（ローカル & Vercel のフロントエンドを許可）
+const allowedOrigins = [
+  'https://gdsc-membership-front.vercel.app', // Vercelのフロントエンド
+  'http://localhost:3000', // ローカル環境（React開発用）
+];
+
 server.use(
   cors({
-    origin: 'https://gdsc-membership-front.vercel.app', // フロントエンドのURL
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // Cookie 認証を使う場合は true
   }),
 );
 
@@ -22,11 +28,13 @@ async function bootstrap() {
   if (!appInitialized) {
     const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
     app.use(express.json());
+
+    // NestJS 側でも CORS を有効化
     app.enableCors({
-      // NestJS 側でも CORS を有効化
-      origin: 'https://gdsc-membership-front.vercel.app',
+      origin: allowedOrigins,
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],
+      credentials: true, // Cookie 認証を使う場合は true
     });
 
     await app.init();
