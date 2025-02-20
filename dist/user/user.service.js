@@ -38,6 +38,7 @@ let UserService = class UserService {
     }
     async convertToUserType(data) {
         return {
+            id: data.id,
             name: data.name ?? '',
             studentId: data.student_id ?? '',
             email: data.email ?? '',
@@ -45,6 +46,7 @@ let UserService = class UserService {
             teamEvent: data.team_event ?? false,
             teamMarketing: data.team_marketing ?? false,
             teamTechnology: data.team_technology ?? false,
+            role: data.role,
         };
     }
 };

@@ -62,6 +62,7 @@ export class UserRepository {
           team_event: data.teamEvent,
           team_marketing: data.teamMarketing,
           team_technology: data.teamTechnology,
+          role: data.role,
         },
       });
     } catch (error) {

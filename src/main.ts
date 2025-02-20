@@ -10,7 +10,7 @@ async function bootstrap() {
     credentials: true, // 認証情報が必要ならtrue
   });
   await app.listen(3000);
-  console.log(`Application is running on: http://localhost:3000`);
+  console.log(`Local Application is running on: http://localhost:3000`);
 }
 
 bootstrap();

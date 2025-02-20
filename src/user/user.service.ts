@@ -40,6 +40,7 @@ export class UserService {
   // ユーザー型に変換
   async convertToUserType(data: OutputUser): Promise<User> {
     return {
+      id: data.id,
       name: data.name ?? '',
       studentId: data.student_id ?? '',
       email: data.email ?? '',
@@ -47,6 +48,7 @@ export class UserService {
       teamEvent: data.team_event ?? false,
       teamMarketing: data.team_marketing ?? false,
       teamTechnology: data.team_technology ?? false,
+      role: data.role as 'ADMIN' | 'DEVELOPER' | 'MEMBER' | 'CORE_MEMBER',
     };
   }
 }
