@@ -6,10 +6,15 @@ const platform_express_1 = require("@nestjs/platform-express");
 const express = require("express");
 const cors = require("cors");
 const server = express();
+const allowedOrigins = [
+    'https://gdsc-membership-front.vercel.app',
+    'http://localhost:3000',
+];
 server.use(cors({
-    origin: 'https://gdsc-membership-front.vercel.app',
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
 }));
 let appInitialized = false;
 async function bootstrap() {
@@ -17,9 +22,10 @@ async function bootstrap() {
         const app = await core_1.NestFactory.create(app_module_1.AppModule, new platform_express_1.ExpressAdapter(server));
         app.use(express.json());
         app.enableCors({
-            origin: 'https://gdsc-membership-front.vercel.app',
+            origin: allowedOrigins,
             methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
             allowedHeaders: ['Content-Type', 'Authorization'],
+            credentials: true,
         });
         await app.init();
         appInitialized = true;

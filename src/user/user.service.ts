@@ -14,8 +14,8 @@ export class UserService {
   }
 
   // ユーザーIDで取得
-  async getUserById(schoolId: string): Promise<User | null> {
-    const user = await this.userRepository.findById(schoolId);
+  async getUserById(studentId: string): Promise<User | null> {
+    const user = await this.userRepository.findById(studentId);
     return this.convertToUserType(user);
   }
 
@@ -26,14 +26,14 @@ export class UserService {
   }
 
   // ユーザー更新
-  async updateUser(schoolId: string, data: User): Promise<User> {
-    const user = await this.userRepository.update(schoolId, data);
+  async updateUser(studentId: string, data: User): Promise<User> {
+    const user = await this.userRepository.update(studentId, data);
     return this.convertToUserType(user);
   }
 
   // ユーザー削除
-  async deleteUser(schoolId: string): Promise<User> {
-    const user = await this.userRepository.delete(schoolId);
+  async deleteUser(studentId: string): Promise<User> {
+    const user = await this.userRepository.delete(studentId);
     return this.convertToUserType(user);
   }
 

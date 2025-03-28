@@ -5,9 +5,9 @@ export declare class UserService {
     private readonly userRepository;
     constructor(userRepository: UserRepository);
     createUser(data: User): Promise<User>;
-    getUserById(schoolId: string): Promise<User | null>;
+    getUserById(studentId: string): Promise<User | null>;
     getAllUsers(): Promise<User[] | null>;
-    updateUser(schoolId: string, data: User): Promise<User>;
-    deleteUser(schoolId: string): Promise<User>;
+    updateUser(studentId: string, data: User): Promise<User>;
+    deleteUser(studentId: string): Promise<User>;
     convertToUserType(data: OutputUser): Promise<User>;
 }

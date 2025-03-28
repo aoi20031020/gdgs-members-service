@@ -20,20 +20,20 @@ let UserService = class UserService {
         const user = await this.userRepository.create(data);
         return this.convertToUserType(user);
     }
-    async getUserById(schoolId) {
-        const user = await this.userRepository.findById(schoolId);
+    async getUserById(studentId) {
+        const user = await this.userRepository.findById(studentId);
         return this.convertToUserType(user);
     }
     async getAllUsers() {
         const users = await this.userRepository.findAll();
         return Promise.all(users.map((user) => this.convertToUserType(user)));
     }
-    async updateUser(schoolId, data) {
-        const user = await this.userRepository.update(schoolId, data);
+    async updateUser(studentId, data) {
+        const user = await this.userRepository.update(studentId, data);
         return this.convertToUserType(user);
     }
-    async deleteUser(schoolId) {
-        const user = await this.userRepository.delete(schoolId);
+    async deleteUser(studentId) {
+        const user = await this.userRepository.delete(studentId);
         return this.convertToUserType(user);
     }
     async convertToUserType(data) {
