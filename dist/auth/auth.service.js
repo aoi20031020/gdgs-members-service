@@ -24,7 +24,7 @@ let AuthService = class AuthService {
             throw new common_1.UnauthorizedException('Invalid credentials');
         }
         if (user.role === 'MEMBER') {
-            throw new common_1.ForbiddenException('You do not have permission to log in.');
+            throw new common_1.ForbiddenException('Permission denied');
         }
         const token = this.jwtService.sign({ userId: user.id, role: user.role });
         return { token };

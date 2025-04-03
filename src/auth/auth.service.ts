@@ -25,7 +25,7 @@ export class AuthService {
 
     // 'MEMBER' の場合は認証しない
     if (user.role === 'MEMBER') {
-      throw new ForbiddenException('You do not have permission to log in.');
+      throw new ForbiddenException('Permission denied');
     }
 
     // JWT トークンを発行
