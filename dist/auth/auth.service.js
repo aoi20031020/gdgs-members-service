@@ -27,7 +27,7 @@ let AuthService = class AuthService {
             throw new common_1.ForbiddenException('Permission denied');
         }
         const token = this.jwtService.sign({ userId: user.id, role: user.role });
-        return { token };
+        return { token, user };
     }
 };
 exports.AuthService = AuthService;

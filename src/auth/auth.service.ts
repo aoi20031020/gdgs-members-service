@@ -31,6 +31,6 @@ export class AuthService {
     // JWT トークンを発行
     const token = this.jwtService.sign({ userId: user.id, role: user.role });
 
-    return { token };
+    return { token, user };
   }
 }

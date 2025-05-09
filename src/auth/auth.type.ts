@@ -1,3 +1,4 @@
+import { User } from '../user/user.type';
 export type Auth = {
   fullName: string;
   studentId: string;
@@ -5,6 +6,7 @@ export type Auth = {
 
 export type AuthContent = {
   token: string;
+  user: User;
 };
 
 export type JwtPayload = {
